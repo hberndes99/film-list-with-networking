@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		E41ADDDE268A03D0001936EC /* FilmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ADDDD268A03D0001936EC /* FilmModel.swift */; };
 		E41ADDE0268A05A2001936EC /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ADDDF268A05A2001936EC /* NetworkingManager.swift */; };
 		E41ADDE2268A0A30001936EC /* FilmListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ADDE1268A0A30001936EC /* FilmListTableViewCell.swift */; };
+		E41ADDE5268A0F44001936EC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E41ADDE4268A0F44001936EC /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E41ADDE5268A0F44001936EC /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,9 @@
 			dependencies = (
 			);
 			name = "networking-with-film-api";
+			packageProductDependencies = (
+				E41ADDE4268A0F44001936EC /* Alamofire */,
+			);
 			productName = "networking-with-film-api";
 			productReference = E41ADDC6268A0200001936EC /* networking-with-film-api.app */;
 			productType = "com.apple.product-type.application";
@@ -116,6 +121,9 @@
 				Base,
 			);
 			mainGroup = E41ADDBD268A0200001936EC;
+			packageReferences = (
+				E41ADDE3268A0F44001936EC /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = E41ADDC7268A0200001936EC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -339,6 +347,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E41ADDE3268A0F44001936EC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E41ADDE4268A0F44001936EC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E41ADDE3268A0F44001936EC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E41ADDBE268A0200001936EC /* Project object */;
 }

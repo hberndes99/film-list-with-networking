@@ -7,10 +7,7 @@
 
 import UIKit
 
-var filmList = FilmList(results: [
-    Film(title: "test", id: 1, overview: "", vote_average: 1.0),
-    Film(title: "test 1", id: 2, overview: "", vote_average: 1.0)
-])
+var filmList = FilmList(results: [])
 
 class ViewController: UIViewController {
     
@@ -30,6 +27,11 @@ class ViewController: UIViewController {
         view.addSubview(filmTable)
         
         setUpConstraints()
+        
+        NetworkingManager.getFilmsByGenre { [weak self] films in
+            filmList.results = films
+            self?.filmTable.reloadData()
+        }
     }
     
     func setUpConstraints() {
@@ -56,5 +58,8 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedFilm = filmList.results[indexPath.row]
+        print(selectedFilm)
+    }
 }

@@ -30,7 +30,6 @@ class FilmListTableViewCell: UITableViewCell {
     
     func configureCell(for film: Film) {
         titleLabel.text = film.title
-        print(film.title)
     }
     
     required init?(coder: NSCoder) {
