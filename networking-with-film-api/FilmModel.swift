@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct FilmList {
+struct FilmList: Codable {
     var results: [Film]
 }
 
-struct Film {
+struct Film: Codable {
     var title: String
     var id: Int
     var overview: String
