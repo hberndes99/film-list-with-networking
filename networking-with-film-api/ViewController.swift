@@ -12,30 +12,51 @@ var filmList = FilmList(results: [])
 class ViewController: UIViewController {
     
     private var filmTable: UITableView!
+    private var searchBar: UISearchBar!
+    private var searchController: UISearchController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         
+        //searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, height: 50.0, width: tableView.frame.width))
+        //searchBar.placeholder = "search for films by title"
+        //searchBar.delegate = self
+      
+        searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+        
         filmTable = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
         filmTable.translatesAutoresizingMaskIntoConstraints = false
         filmTable.dataSource = self
         filmTable.delegate = self
         filmTable.register(FilmListTableViewCell.self, forCellReuseIdentifier: "filmCell")
-        
+    
+    
         view.addSubview(filmTable)
+        
+        
         
         setUpConstraints()
         
-        NetworkingManager.getFilmsByGenre { [weak self] films in
+        NetworkingManager.getFilmsByTitle(title: "parent trap") { [weak self] films in
             filmList.results = films
             self?.filmTable.reloadData()
         }
     }
     
     func setUpConstraints() {
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+        //self.searchController.searchBar.becomeFirstResponder()
         
+
+     
     }
 
 
@@ -62,4 +83,16 @@ extension ViewController: UITableViewDelegate {
         let selectedFilm = filmList.results[indexPath.row]
         print(selectedFilm)
     }
+}
+
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NetworkingManager.getFilmsByTitle(title: searchText) {[weak self] films in
+            filmList.results = films
+            self?.filmTable.reloadData()
+        }
+    }
+    
+    
 }
