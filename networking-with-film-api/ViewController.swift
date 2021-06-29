@@ -34,10 +34,7 @@ class ViewController: UIViewController {
         filmTable.delegate = self
         filmTable.register(FilmListTableViewCell.self, forCellReuseIdentifier: "filmCell")
     
-    
         view.addSubview(filmTable)
-        
-        
         
         setUpConstraints()
         
@@ -59,12 +56,8 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
         //self.searchController.searchBar.becomeFirstResponder()
-        
-
-     
+    
     }
-
-
 }
 
 
@@ -77,20 +70,23 @@ extension ViewController: UITableViewDataSource {
         let cell = filmTable.dequeueReusableCell(withIdentifier: "filmCell", for: indexPath) as! FilmListTableViewCell
         let film = filmList.results[indexPath.row]
         cell.configureCell(for: film)
+        cell.selectionStyle = .none
         return cell
     }
-    
-    
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilm = filmList.results[indexPath.row]
         print(selectedFilm)
+        let pop = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
+        filmTable.alpha = 0.2
+        view.addSubview(pop)
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height: CGFloat = 70
+        let height: CGFloat = 90
         return height
     }
 }

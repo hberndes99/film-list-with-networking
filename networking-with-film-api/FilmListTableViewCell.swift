@@ -18,6 +18,7 @@ class FilmListTableViewCell: UITableViewCell {
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.numberOfLines = 0
         contentView.addSubview(titleLabel)
         
         ratingLabel = UILabel()
@@ -25,7 +26,7 @@ class FilmListTableViewCell: UITableViewCell {
         contentView.addSubview(ratingLabel)
         
         filmImageLabel = UIImageView()
-        filmImageLabel.frame = CGRect(x: 30, y: 5, width: 40, height: 60)
+        filmImageLabel.frame = CGRect(x: 30, y: 10, width: 40, height: 70)
         filmImageLabel.clipsToBounds = true
         filmImageLabel.contentMode = .scaleAspectFill
         contentView.addSubview(filmImageLabel)
@@ -37,7 +38,8 @@ class FilmListTableViewCell: UITableViewCell {
     func setUpConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 90),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            titleLabel.widthAnchor.constraint(equalToConstant: 250)
         ])
         NSLayoutConstraint.activate([
             ratingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 90),
