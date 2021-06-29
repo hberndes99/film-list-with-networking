@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol DetailFilmPopUpViewDelegate {
+    func handleCancelTapped(popUpView: DetailFilmPopUpView)
+    
+    func handleAddTapped(selectedFilm: Film)
+}
+
 class DetailFilmPopUpView: UIView {
     
     private var titleLabel: UILabel!
@@ -16,6 +22,7 @@ class DetailFilmPopUpView: UIView {
     private var addButton: UIButton!
     private var container: UIView!
     
+    weak var delegate: ViewController?
     var selectedFilm: Film
     
     init(frame: CGRect, selectedFilm: Film) {
@@ -45,6 +52,7 @@ class DetailFilmPopUpView: UIView {
         cancelButton.layer.cornerRadius = 5
         cancelButton.backgroundColor = .green
         cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         
         addButton = UIButton()
         addButton.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +117,11 @@ class DetailFilmPopUpView: UIView {
     
     @objc func addTapped() {
         print("add tapped")
+    }
+    
+    @objc func cancelTapped() {
+        print("cancel tapped")
+        delegate?.handleCancelTapped(popUpView: self)
     }
     
     required init?(coder: NSCoder) {

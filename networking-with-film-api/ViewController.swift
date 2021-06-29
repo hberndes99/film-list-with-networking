@@ -80,6 +80,7 @@ extension ViewController: UITableViewDelegate {
         let selectedFilm = filmList.results[indexPath.row]
         print(selectedFilm)
         let pop = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
+        pop.delegate = self
         filmTable.alpha = 0.2
         view.addSubview(pop)
         
@@ -98,6 +99,19 @@ extension ViewController: UISearchBarDelegate {
             filmList.results = films
             self?.filmTable.reloadData()
         }
+    }
+}
+
+
+extension ViewController : DetailFilmPopUpViewDelegate {
+    func handleCancelTapped(popUpView: DetailFilmPopUpView) {
+        print("dismiss")
+        popUpView.removeFromSuperview()
+        filmTable.alpha = 1
+    }
+    
+    func handleAddTapped(selectedFilm: Film) {
+        print("hi")
     }
     
     
