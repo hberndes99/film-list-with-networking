@@ -10,6 +10,7 @@ import UIKit
 class FilmListTableViewCell: UITableViewCell {
     
     private var titleLabel: UILabel!
+    private var ratingLabel: UILabel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "filmCell")
@@ -18,18 +19,27 @@ class FilmListTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleLabel)
         
+        ratingLabel = UILabel()
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(ratingLabel)
+        
         setUpConstraints()
     }
     
     func setUpConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 60),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
+        ])
+        NSLayoutConstraint.activate([
+            ratingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 60),
+            ratingLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10)
         ])
     }
     
     func configureCell(for film: Film) {
         titleLabel.text = film.title
+        ratingLabel.text = "\(film.vote_average)"
     }
     
     required init?(coder: NSCoder) {

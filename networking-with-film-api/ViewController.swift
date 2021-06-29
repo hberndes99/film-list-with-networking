@@ -83,6 +83,11 @@ extension ViewController: UITableViewDelegate {
         let selectedFilm = filmList.results[indexPath.row]
         print(selectedFilm)
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height: CGFloat = 70
+        return height
+    }
 }
 
 
