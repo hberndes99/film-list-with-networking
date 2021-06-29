@@ -48,7 +48,12 @@ class ViewController: UIViewController {
     }
     
     func setUpConstraints() {
-       
+        NSLayoutConstraint.activate([
+            filmTable.topAnchor.constraint(equalTo: view.topAnchor),
+            filmTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            filmTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filmTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {
