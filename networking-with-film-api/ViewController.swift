@@ -34,10 +34,7 @@ class ViewController: UIViewController {
         filmTable.delegate = self
         filmTable.register(FilmListTableViewCell.self, forCellReuseIdentifier: "filmCell")
     
-    
         view.addSubview(filmTable)
-        
-        
         
         setUpConstraints()
         
@@ -48,18 +45,19 @@ class ViewController: UIViewController {
     }
     
     func setUpConstraints() {
-       
+        NSLayoutConstraint.activate([
+            filmTable.topAnchor.constraint(equalTo: view.topAnchor),
+            filmTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            filmTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filmTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
         //self.searchController.searchBar.becomeFirstResponder()
-        
-
-     
+    
     }
-
-
 }
 
 
@@ -72,16 +70,25 @@ extension ViewController: UITableViewDataSource {
         let cell = filmTable.dequeueReusableCell(withIdentifier: "filmCell", for: indexPath) as! FilmListTableViewCell
         let film = filmList.results[indexPath.row]
         cell.configureCell(for: film)
+        cell.selectionStyle = .none
         return cell
     }
-    
-    
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilm = filmList.results[indexPath.row]
         print(selectedFilm)
+        let pop = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
+        pop.delegate = self
+        filmTable.alpha = 0.2
+        view.addSubview(pop)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height: CGFloat = 90
+        return height
     }
 }
 
@@ -92,6 +99,19 @@ extension ViewController: UISearchBarDelegate {
             filmList.results = films
             self?.filmTable.reloadData()
         }
+    }
+}
+
+
+extension ViewController : DetailFilmPopUpViewDelegate {
+    func handleCancelTapped(popUpView: DetailFilmPopUpView) {
+        print("dismiss")
+        popUpView.removeFromSuperview()
+        filmTable.alpha = 1
+    }
+    
+    func handleAddTapped(selectedFilm: Film) {
+        print("hi")
     }
     
     

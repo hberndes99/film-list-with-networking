@@ -10,26 +10,51 @@ import UIKit
 class FilmListTableViewCell: UITableViewCell {
     
     private var titleLabel: UILabel!
+    private var ratingLabel: UILabel!
+    private var filmImageLabel: UIImageView!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "filmCell")
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.numberOfLines = 0
         contentView.addSubview(titleLabel)
+        
+        ratingLabel = UILabel()
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(ratingLabel)
+        
+        filmImageLabel = UIImageView()
+        filmImageLabel.frame = CGRect(x: 30, y: 10, width: 40, height: 70)
+        filmImageLabel.clipsToBounds = true
+        filmImageLabel.contentMode = .scaleAspectFill
+        contentView.addSubview(filmImageLabel)
+        
         
         setUpConstraints()
     }
     
     func setUpConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 90),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            titleLabel.widthAnchor.constraint(equalToConstant: 250)
+        ])
+        NSLayoutConstraint.activate([
+            ratingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 90),
+            ratingLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10)
+        ])
+        NSLayoutConstraint.activate([
+            filmImageLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
     
     func configureCell(for film: Film) {
         titleLabel.text = film.title
+        ratingLabel.text = "\(film.vote_average)"
+        filmImageLabel.image = UIImage(named: "harrypotter")
+        
     }
     
     required init?(coder: NSCoder) {
