@@ -119,18 +119,17 @@ extension ViewController : DetailFilmPopUpViewDelegate {
         popUpView!.removeFromSuperview()
         // popUpView = nil
         filmTable.alpha = 1
-        
     }
     
     func handleAddTapped(selectedFilm: Film) {
-        watchList.append(selectedFilm)
-        for title in watchList {
-            print(title.title)
+        if !watchList.contains(selectedFilm) {
+            watchList.append(selectedFilm)
+        }
+        else {
+            print("alr in watch list")
         }
         popUpView!.removeFromSuperview()
         // popUpView = nil
         filmTable.alpha = 1
     }
-    
-    
 }
