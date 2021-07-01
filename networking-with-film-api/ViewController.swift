@@ -9,12 +9,15 @@ import UIKit
 
 var filmList = FilmList(results: [])
 
+
 class ViewController: UIViewController {
     
     private var filmTable: UITableView!
     private var searchBar: UISearchBar!
     private var searchController: UISearchController!
-
+    private var popUpView: DetailFilmPopUpView?
+    var watchList: [Film] = [Film]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -79,10 +82,12 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilm = filmList.results[indexPath.row]
         print(selectedFilm)
-        let pop = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
-        pop.delegate = self
-        filmTable.alpha = 0.2
-        view.addSubview(pop)
+        popUpView = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
+        if let popUpView = popUpView {
+            popUpView.delegate = self
+            filmTable.alpha = 0.2
+            view.addSubview(popUpView)
+        }
         
     }
     
@@ -104,14 +109,23 @@ extension ViewController: UISearchBarDelegate {
 
 
 extension ViewController : DetailFilmPopUpViewDelegate {
-    func handleCancelTapped(popUpView: DetailFilmPopUpView) {
+    func handleCancelTapped(popUpView: DetailFilmPopUpView?) {
         print("dismiss")
-        popUpView.removeFromSuperview()
+       
+        popUpView!.removeFromSuperview()
+        // popUpView = nil
         filmTable.alpha = 1
+        
     }
     
     func handleAddTapped(selectedFilm: Film) {
-        print("hi")
+        watchList.append(selectedFilm)
+        for title in watchList {
+            print(title.title)
+        }
+        popUpView!.removeFromSuperview()
+        // popUpView = nil
+        filmTable.alpha = 1
     }
     
     

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DetailFilmPopUpViewDelegate {
-    func handleCancelTapped(popUpView: DetailFilmPopUpView)
+    func handleCancelTapped(popUpView: DetailFilmPopUpView?)
     
     func handleAddTapped(selectedFilm: Film)
 }
@@ -117,6 +117,7 @@ class DetailFilmPopUpView: UIView {
     
     @objc func addTapped() {
         print("add tapped")
+        delegate?.handleAddTapped(selectedFilm: self.selectedFilm)
     }
     
     @objc func cancelTapped() {
@@ -126,6 +127,10 @@ class DetailFilmPopUpView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("pop up view deinitialised")
     }
     
     
