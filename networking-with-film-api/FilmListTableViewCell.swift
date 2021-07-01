@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FilmListTableViewCell: UITableViewCell {
     
@@ -53,7 +54,11 @@ class FilmListTableViewCell: UITableViewCell {
     func configureCell(for film: Film) {
         titleLabel.text = film.title
         ratingLabel.text = "\(film.vote_average)"
-        filmImageLabel.image = UIImage(named: "harrypotter")
+        if let imageUrl = film.poster_path {
+            filmImageLabel.sd_setImage(with: URL(string:  "https://image.tmdb.org/t/p/w500\(imageUrl)"))
+        }
+        // filmImageLabel.image = UIImage(named: "harrypotter")
+        
         
     }
     

@@ -16,4 +16,5 @@ struct Film: Codable {
     var id: Int
     var overview: String
     var vote_average: Double
+    var poster_path: String?
 }
