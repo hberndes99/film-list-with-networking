@@ -11,9 +11,10 @@ struct FilmList: Codable {
     var results: [Film]
 }
 
-struct Film: Codable {
+struct Film: Codable, Equatable {
     var title: String
     var id: Int
     var overview: String
     var vote_average: Double
+    var poster_path: String?
 }

@@ -9,24 +9,25 @@ import UIKit
 
 var filmList = FilmList(results: [])
 
+
 class ViewController: UIViewController {
     
     private var filmTable: UITableView!
     private var searchBar: UISearchBar!
     private var searchController: UISearchController!
-
+    private var popUpView: DetailFilmPopUpView?
+    var watchList: [Film] = [Film]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         view.backgroundColor = .white
         
-        //searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, height: 50.0, width: tableView.frame.width))
-        //searchBar.placeholder = "search for films by title"
-        //searchBar.delegate = self
-      
         searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search for films by name"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Watch list", style: .plain, target: self, action: #selector(showWatchList))
         
         filmTable = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
         filmTable.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +41,10 @@ class ViewController: UIViewController {
         
         NetworkingManager.getFilmsByTitle(title: "parent trap") { [weak self] films in
             filmList.results = films
-            self?.filmTable.reloadData()
+            DispatchQueue.main.async {
+                self?.filmTable.reloadData()
+            }
+    
         }
     }
     
@@ -53,11 +57,12 @@ class ViewController: UIViewController {
         ])
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-        //self.searchController.searchBar.becomeFirstResponder()
-    
+    @objc func showWatchList() {
+        let watchListVC = WatchListViewController(watchList: watchList)
+        navigationController?.pushViewController(watchListVC, animated: true)
     }
+    
+    
 }
 
 
@@ -79,10 +84,12 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilm = filmList.results[indexPath.row]
         print(selectedFilm)
-        let pop = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
-        pop.delegate = self
-        filmTable.alpha = 0.2
-        view.addSubview(pop)
+        popUpView = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
+        if let popUpView = popUpView {
+            popUpView.delegate = self
+            filmTable.alpha = 0.2
+            view.addSubview(popUpView)
+        }
         
     }
     
@@ -97,22 +104,32 @@ extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NetworkingManager.getFilmsByTitle(title: searchText) {[weak self] films in
             filmList.results = films
-            self?.filmTable.reloadData()
+            DispatchQueue.main.async {
+                self?.filmTable.reloadData()
+            }
         }
     }
 }
 
 
 extension ViewController : DetailFilmPopUpViewDelegate {
-    func handleCancelTapped(popUpView: DetailFilmPopUpView) {
+    func handleCancelTapped(popUpView: DetailFilmPopUpView?) {
         print("dismiss")
-        popUpView.removeFromSuperview()
+       
+        popUpView!.removeFromSuperview()
+        // popUpView = nil
         filmTable.alpha = 1
     }
     
     func handleAddTapped(selectedFilm: Film) {
-        print("hi")
+        if !watchList.contains(selectedFilm) {
+            watchList.append(selectedFilm)
+        }
+        else {
+            print("alr in watch list")
+        }
+        popUpView!.removeFromSuperview()
+        // popUpView = nil
+        filmTable.alpha = 1
     }
-    
-    
 }
