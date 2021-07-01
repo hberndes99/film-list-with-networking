@@ -38,7 +38,7 @@ class DetailFilmPopUpView: UIView {
         
         ratingLabel = UILabel()
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
-        ratingLabel.text = "Rating: \(selectedFilm.vote_average)"
+        ratingLabel.text = "Rating: \(selectedFilm.voteAverage)"
         ratingLabel.numberOfLines = 0
         
         //can i make this a scrollable view instead of just normal
@@ -116,12 +116,10 @@ class DetailFilmPopUpView: UIView {
     }
     
     @objc func addTapped() {
-        print("add tapped")
         delegate?.handleAddTapped(selectedFilm: self.selectedFilm)
     }
     
     @objc func cancelTapped() {
-        print("cancel tapped")
         delegate?.handleCancelTapped(popUpView: self)
     }
     

@@ -15,6 +15,15 @@ struct Film: Codable, Equatable {
     var title: String
     var id: Int
     var overview: String
-    var vote_average: Double
-    var poster_path: String?
+    var voteAverage: Double
+    var posterPath: String?
+    /*
+    enum CodingKeys: String, CodingKey {
+        case title
+        case id
+        case overview
+        case rating = "vote_average"
+        case imageUrl = "poster_path"
+    }
+ */
 }

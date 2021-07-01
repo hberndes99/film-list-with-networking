@@ -53,11 +53,12 @@ class FilmListTableViewCell: UITableViewCell {
     
     func configureCell(for film: Film) {
         titleLabel.text = film.title
-        ratingLabel.text = "\(film.vote_average)"
-        if let imageUrl = film.poster_path {
+        ratingLabel.text = "\(film.voteAverage)"
+        if let imageUrl = film.posterPath {
             filmImageLabel.sd_setImage(with: URL(string:  "https://image.tmdb.org/t/p/w500\(imageUrl)"))
+        } else {
+            filmImageLabel.image = UIImage(named: "unknown")
         }
-        // filmImageLabel.image = UIImage(named: "harrypotter")
         
         
     }

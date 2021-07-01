@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         
         setUpConstraints()
         
-        NetworkingManager.getFilmsByTitle(title: "parent trap") { [weak self] films in
+        NetworkingManager.getFilmsByTitle(title: "the parent trap") { [weak self] films in
             filmList.results = films
             DispatchQueue.main.async {
                 self?.filmTable.reloadData()
@@ -83,7 +83,6 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilm = filmList.results[indexPath.row]
-        print(selectedFilm)
         popUpView = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
         if let popUpView = popUpView {
             popUpView.delegate = self
