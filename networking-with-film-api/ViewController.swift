@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Watch list", style: .plain, target: self, action: #selector(showWatchList))
         
         filmTable = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
         filmTable.translatesAutoresizingMaskIntoConstraints = false
@@ -56,11 +57,12 @@ class ViewController: UIViewController {
         ])
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-        //self.searchController.searchBar.becomeFirstResponder()
-    
+    @objc func showWatchList() {
+        let watchListVC = WatchListViewController(watchList: watchList)
+        navigationController?.pushViewController(watchListVC, animated: true)
     }
+    
+    
 }
 
 
