@@ -26,6 +26,7 @@ class WatchListViewController: UIViewController {
         
         print(watchList)
         view.backgroundColor = .red
+        title = "Your watch list"
         
         watchListTableView = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
         watchListTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +53,18 @@ extension WatchListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height: CGFloat = 90
         return height
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            watchList.remove(at: indexPath.row)
+            watchListTableView.reloadData()
+            // remove from user defaults
+        }
     }
 }
 

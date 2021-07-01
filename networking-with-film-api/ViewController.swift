@@ -20,16 +20,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         view.backgroundColor = .white
         
-        //searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, height: 50.0, width: tableView.frame.width))
-        //searchBar.placeholder = "search for films by title"
-        //searchBar.delegate = self
-      
         searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search for films by name"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Watch list", style: .plain, target: self, action: #selector(showWatchList))
         
         filmTable = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
