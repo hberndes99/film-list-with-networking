@@ -46,6 +46,10 @@ class WatchListViewController: UIViewController {
             watchListTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
+    
+    deinit {
+        print("watch list view controller deinitialised")
+    }
 }
 
 

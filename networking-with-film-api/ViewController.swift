@@ -41,7 +41,10 @@ class ViewController: UIViewController {
         
         NetworkingManager.getFilmsByTitle(title: "parent trap") { [weak self] films in
             filmList.results = films
-            self?.filmTable.reloadData()
+            DispatchQueue.main.async {
+                self?.filmTable.reloadData()
+            }
+    
         }
     }
     
@@ -101,7 +104,9 @@ extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NetworkingManager.getFilmsByTitle(title: searchText) {[weak self] films in
             filmList.results = films
-            self?.filmTable.reloadData()
+            DispatchQueue.main.async {
+                self?.filmTable.reloadData()
+            }
         }
     }
 }
