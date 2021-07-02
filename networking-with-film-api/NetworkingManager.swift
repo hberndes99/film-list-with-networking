@@ -54,6 +54,7 @@ class NetworkingManager {
                 }
                 if let data = data {
                     let jsonDecoder = JSONDecoder()
+                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                     if let filmData = try? jsonDecoder.decode(FilmList.self, from: data) {
                         completion(filmData.results)
                     }
