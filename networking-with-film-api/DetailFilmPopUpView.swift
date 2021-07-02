@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DetailFilmPopUpViewDelegate {
-    func handleCancelTapped(popUpView: DetailFilmPopUpView?)
+    func handleCancelTapped(popUpView: DetailFilmPopUpView)
     
     func handleAddTapped(selectedFilm: Film)
 }

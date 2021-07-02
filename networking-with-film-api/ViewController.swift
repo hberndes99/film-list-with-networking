@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private var filmTable: UITableView!
     private var searchBar: UISearchBar!
     private var searchController: UISearchController!
-    private var popUpView: DetailFilmPopUpView?
+    private weak var popUpView: DetailFilmPopUpView?
     var watchList: [Film] = [Film]()
     
     override func viewDidLoad() {
@@ -46,6 +46,7 @@ class ViewController: UIViewController {
             }
     
         }
+        
     }
     
     func setUpConstraints() {
@@ -61,6 +62,15 @@ class ViewController: UIViewController {
         let watchListVC = WatchListViewController(watchList: watchList)
         navigationController?.pushViewController(watchListVC, animated: true)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let savedFilms = userDefaults.data(forKey: "savedToWatchList") {
+            if let savedFilms = try? jsonDecoder.decode([Film].self, from: savedFilms) {
+                watchList = savedFilms
+            }
+        }
+    }
+    
     
     
 }
@@ -83,12 +93,15 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilm = filmList.results[indexPath.row]
-        popUpView = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
-        if let popUpView = popUpView {
-            popUpView.delegate = self
-            filmTable.alpha = 0.2
-            view.addSubview(popUpView)
-        }
+        let popUpView = DetailFilmPopUpView(frame: .zero, selectedFilm: selectedFilm)
+        self.popUpView = popUpView
+       
+        popUpView.delegate = self
+        filmTable.alpha = 0.2
+        print(view.subviews.count)
+        view.addSubview(popUpView)
+        print(view.subviews.count)
+        
         
     }
     
@@ -112,18 +125,33 @@ extension ViewController: UISearchBarDelegate {
 
 
 extension ViewController : DetailFilmPopUpViewDelegate {
-    func handleCancelTapped(popUpView: DetailFilmPopUpView?) {
-        print("dismiss")
-       
-        popUpView!.removeFromSuperview()
-        // popUpView = nil
+    func handleCancelTapped(popUpView: DetailFilmPopUpView) {
+        popUpView.removeFromSuperview()
         filmTable.alpha = 1
     }
     
     func handleAddTapped(selectedFilm: Film) {
-        if !watchList.contains(selectedFilm) {
+        if (!watchList.contains(selectedFilm)) {
             watchList.append(selectedFilm)
+            
+            if let savedFilms = userDefaults.data(forKey: "savedToWatchList"), var decodedSavedFilms = try? jsonDecoder.decode([Film].self, from: savedFilms) {
+                    decodedSavedFilms.append(selectedFilm)
+                    if let decodedSavedFilms = try? jsonEncoder.encode(decodedSavedFilms) {
+                        userDefaults.set(decodedSavedFilms, forKey: "savedToWatchList")
+                    }
+                }
+            else {
+                print("list currently empty")
+                // no films currently in watch list
+                var savedFilm = [selectedFilm]
+                if let encodedFilm = try? jsonEncoder.encode(savedFilm) {
+                    userDefaults.set(encodedFilm, forKey: "savedToWatchList")
+                    print("works")
+                }
+            }
+            
         }
+        
         else {
             print("alr in watch list")
         }
