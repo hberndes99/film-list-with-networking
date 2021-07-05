@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // registering default values for user defaults
         userDefaults.register(defaults: [
-            "savedToWatchList": [Data]()
+            Constants.savedFilms: [Data]()
         ])
         
         return true
