@@ -24,9 +24,6 @@ class WatchListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
-        print(watchList)
         view.backgroundColor = .red
         title = "Your watch list"
         
@@ -37,25 +34,6 @@ class WatchListViewController: UIViewController {
         watchListTableView.delegate = self
         
         view.addSubview(watchListTableView)
-        // addConstraints()
-        
-    }
-    
-    /*
-    override func viewDidAppear(_ animated: Bool) {
-        if let savedFilms = userDefaults.data(forKey: "savedToWatchList") {
-            if let savedFilms = try? decoder.decode([Film].self, from: savedFilms) {
-                watchList = savedFilms
-            }
-        }
-    }
- */
-
-    func addConstraints() {
-        NSLayoutConstraint.activate([
-            watchListTableView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            watchListTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
     }
     
     deinit {
@@ -80,7 +58,7 @@ extension WatchListViewController: UITableViewDelegate {
             watchList.remove(at: indexPath.row)
             watchListTableView.reloadData()
             // remove from user defaults
-            if let savedFilms = userDefaults.data(forKey: "savedToWatchList"), var decodedSavedFilms = try? jsonDecoder.decode([Film].self, from: savedFilms) {
+            if let savedFilms = userDefaults.data(forKey: "savedToWatchList"), let decodedSavedFilms = try? jsonDecoder.decode([Film].self, from: savedFilms) {
                 let updatedWatchList = decodedSavedFilms.filter { film in
                     film.id != selectedFilm.id
                 }

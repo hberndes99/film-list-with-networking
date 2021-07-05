@@ -58,7 +58,6 @@ class DetailFilmViewController: UIViewController {
         filmImageView.contentMode = .scaleAspectFill
         view.addSubview(filmImageView)
         
-        filmImageView.image = UIImage(named: "unknown")
         
         //can i make this a scrollable view instead of just normal
         overviewLabel = UILabel()
@@ -96,13 +95,7 @@ class DetailFilmViewController: UIViewController {
         NSLayoutConstraint.activate([
             ratingLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             ratingLabel.leadingAnchor.constraint(equalTo: filmImageView.trailingAnchor, constant: 20),
-            titleLabel.widthAnchor.constraint(equalToConstant: 150)
-        ])
-        NSLayoutConstraint.activate([
-            filmImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            filmImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
-            filmImageView.widthAnchor.constraint(equalToConstant: 100),
-            filmImageView.heightAnchor.constraint(equalToConstant: 150)
+            ratingLabel.widthAnchor.constraint(equalToConstant: 150)
         ])
         NSLayoutConstraint.activate([
             overviewLabel.topAnchor.constraint(equalTo: filmImageView.bottomAnchor, constant: 30),
@@ -141,4 +134,7 @@ class DetailFilmViewController: UIViewController {
         delegate?.handleCancelTapped()
     }
 
+    deinit {
+        print("detail watch list view controller for \(selectedFilm.title) deinitialised")
+    }
 }
