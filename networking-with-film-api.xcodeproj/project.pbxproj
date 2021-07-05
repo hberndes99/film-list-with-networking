@@ -19,6 +19,7 @@
 		E477EB39268B380100EA3B1B /* DetailFilmPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E477EB38268B380100EA3B1B /* DetailFilmPopUpView.swift */; };
 		E477EB3B268DBEAE00EA3B1B /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E477EB3A268DBEAE00EA3B1B /* WatchListViewController.swift */; };
 		E477EB3E268E014800EA3B1B /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E477EB3D268E014800EA3B1B /* SDWebImage */; };
+		E477EB5C268F635600EA3B1B /* DetailFilmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E477EB5B268F635600EA3B1B /* DetailFilmViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		E41ADDE1268A0A30001936EC /* FilmListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmListTableViewCell.swift; sourceTree = "<group>"; };
 		E477EB38268B380100EA3B1B /* DetailFilmPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFilmPopUpView.swift; sourceTree = "<group>"; };
 		E477EB3A268DBEAE00EA3B1B /* WatchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewController.swift; sourceTree = "<group>"; };
+		E477EB5B268F635600EA3B1B /* DetailFilmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFilmViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				E41ADDC9268A0200001936EC /* AppDelegate.swift */,
+				E477EB5B268F635600EA3B1B /* DetailFilmViewController.swift */,
 				E477EB38268B380100EA3B1B /* DetailFilmPopUpView.swift */,
 				E41ADDCB268A0200001936EC /* SceneDelegate.swift */,
 				E41ADDCD268A0200001936EC /* ViewController.swift */,
@@ -164,6 +167,7 @@
 				E41ADDCA268A0200001936EC /* AppDelegate.swift in Sources */,
 				E477EB3B268DBEAE00EA3B1B /* WatchListViewController.swift in Sources */,
 				E41ADDCC268A0200001936EC /* SceneDelegate.swift in Sources */,
+				E477EB5C268F635600EA3B1B /* DetailFilmViewController.swift in Sources */,
 				E41ADDE0268A05A2001936EC /* NetworkingManager.swift in Sources */,
 				E41ADDDE268A03D0001936EC /* FilmModel.swift in Sources */,
 				E477EB39268B380100EA3B1B /* DetailFilmPopUpView.swift in Sources */,

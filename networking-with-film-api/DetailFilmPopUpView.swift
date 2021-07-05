@@ -7,11 +7,13 @@
 
 import UIKit
 
+/*
 protocol DetailFilmPopUpViewDelegate {
     func handleCancelTapped(popUpView: DetailFilmPopUpView)
     
     func handleAddTapped(selectedFilm: Film)
 }
+ */
 
 class DetailFilmPopUpView: UIView {
     
@@ -116,11 +118,12 @@ class DetailFilmPopUpView: UIView {
     }
     
     @objc func addTapped() {
+        print("first func works")
         delegate?.handleAddTapped(selectedFilm: self.selectedFilm)
     }
     
     @objc func cancelTapped() {
-        delegate?.handleCancelTapped(popUpView: self)
+        delegate?.handleCancelTapped()
     }
     
     required init?(coder: NSCoder) {
